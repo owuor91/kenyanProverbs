@@ -29,7 +29,7 @@ public class Proverbs extends AppCompatActivity {
      public static ArrayList<String> provStringArrayList;
     public ArrayList<Proverb> proverbArrayList;
      public static ArrayAdapter arrayAdapter;
-    public static TextView txtMessage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,10 @@ public class Proverbs extends AppCompatActivity {
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/ArchitectsDaughter.ttf").setFontAttrId(R.attr.fontPath).build());
 
-
-
-        //Toast.makeText(this, flingContainer.getTopCardListener().getLastPoint().toString(), Toast.LENGTH_SHORT).show();
-
     }
 
     private void swipeCards(){
-        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+        final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         String[] provStringArray = getResources().getStringArray(R.array.proverbsArray);
 
@@ -89,7 +85,7 @@ public class Proverbs extends AppCompatActivity {
             @Override
             public void onAdapterAboutToEmpty(int i) {
                 Proverb last = new Proverb("No more Kenyan proverbs left to show");
-                proverbArrayList.add(i,last);
+                proverbArrayList.add(i, last);
                 proverbsAdapter.notifyDataSetChanged();
                 i++;
             }
@@ -99,6 +95,7 @@ public class Proverbs extends AppCompatActivity {
 
             }
         });
+
 
 
     }
