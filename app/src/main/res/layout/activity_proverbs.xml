@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/provbg"
     tools:context="owuor91.com.kenyanproverbs.Proverbs">
 
     <android.support.design.widget.AppBarLayout

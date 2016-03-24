@@ -26,6 +26,9 @@ public class Proverbs extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         String[] provArray = getResources().getStringArray(R.array.proverbsArray);
@@ -53,7 +56,7 @@ public class Proverbs extends AppCompatActivity {
 
             @Override
             public void onAdapterAboutToEmpty(int i) {
-                provArrayList.add("XML ".concat(String.valueOf(i)));
+                provArrayList.add("No more Kenyan Proverbs to show at this moment");
                 arrayAdapter.notifyDataSetChanged();
                 i++;
             }
