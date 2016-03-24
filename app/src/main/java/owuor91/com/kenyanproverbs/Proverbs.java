@@ -1,6 +1,8 @@
 package owuor91.com.kenyanproverbs;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
@@ -24,6 +28,7 @@ public class Proverbs extends AppCompatActivity {
 
      public static ArrayList<String> provArrayList;
      public static ArrayAdapter arrayAdapter;
+    public static TextView txtMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,10 @@ public class Proverbs extends AppCompatActivity {
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/ArchitectsDaughter.ttf").setFontAttrId(R.attr.fontPath).build());
 
+        txtMessage = (TextView) findViewById(R.id.helloText);
+
+
+        //Toast.makeText(this, flingContainer.getTopCardListener().getLastPoint().toString(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -61,11 +70,12 @@ public class Proverbs extends AppCompatActivity {
             @Override
             public void onLeftCardExit(Object o) {
 
+                Toast.makeText(getBaseContext(), o.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object o) {
-
+                Toast.makeText(getBaseContext(), o.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -80,6 +90,8 @@ public class Proverbs extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     @Override
@@ -100,9 +112,17 @@ public class Proverbs extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_settings:
+                tweetShare();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void tweetShare(){
+//        String message =  "Wee nimnoma"; //txtMessage.getText().toString();
+//        Intent tweet = new Intent(Intent.ACTION_VIEW);
+//        tweet.setData(Uri.parse("http://twitter.com/?status=" + Uri.encode(message)));
+//        startActivity(tweet);
     }
 }
