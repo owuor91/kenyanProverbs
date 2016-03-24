@@ -6,14 +6,16 @@
     android:layout_height="170dp">
 
     <TextView
+        tools:ignore="MissingPrefix"
         android:id="@+id/helloText"
         android:textSize="20dp"
         android:textColor="@android:color/white"
-        android:background="#3651a0"
+        android:background="@android:color/transparent"
         android:gravity="center"
         tools:text="Yo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        fontPath="fonts/ArchitectsDaughter.ttf"/>
 
     <View
         android:id="@+id/item_swipe_left_indicator"

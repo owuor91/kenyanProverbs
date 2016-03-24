@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.lorentzos.swipecards:library:1.0.9'
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 }
