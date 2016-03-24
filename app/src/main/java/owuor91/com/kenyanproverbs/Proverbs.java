@@ -16,6 +16,9 @@ import java.util.List;
 
 public class Proverbs extends AppCompatActivity {
 
+     public static ArrayList<String> provArrayList;
+     public static ArrayAdapter arrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +29,40 @@ public class Proverbs extends AppCompatActivity {
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         String[] provArray = getResources().getStringArray(R.array.proverbsArray);
-        List<String> provArrayList = Arrays.asList(provArray);
+        provArrayList = new ArrayList<String>(Arrays.asList(provArray));
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, R.layout.item, R.id.helloText, provArrayList);
+        arrayAdapter = new ArrayAdapter<String>(this, R.layout.item, R.id.helloText, provArrayList);
 
         flingContainer.setAdapter(arrayAdapter);
-        
+        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+            @Override
+            public void removeFirstObjectInAdapter() {
+                provArrayList.remove(0);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLeftCardExit(Object o) {
+
+            }
+
+            @Override
+            public void onRightCardExit(Object o) {
+
+            }
+
+            @Override
+            public void onAdapterAboutToEmpty(int i) {
+                provArrayList.add("XML ".concat(String.valueOf(i)));
+                arrayAdapter.notifyDataSetChanged();
+                i++;
+            }
+
+            @Override
+            public void onScroll(float v) {
+
+            }
+        });
     }
 
 }
