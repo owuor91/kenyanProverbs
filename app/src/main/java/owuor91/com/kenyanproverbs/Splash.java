@@ -1,5 +1,6 @@
 package owuor91.com.kenyanproverbs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,5 +20,21 @@ public class Splash extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+       Thread spl = new Thread(){
+         public void run(){
+             try {
+                 sleep(2500);
+                 Intent intent = new Intent(Splash.this, Proverbs.class);
+                 startActivity(intent);
+                 finish();
+             }
+             catch (Exception e) {
+                e.printStackTrace();
+             }
+         }
+       };
+
+        spl.start();
     }
 }
