@@ -92,12 +92,12 @@ public class Proverbs extends AppCompatActivity {
 
             @Override
             public void onScroll(float v) {
-
+                View view = (View) findViewById(flingContainer.getId());
+                TextView txt = (TextView) view.findViewById(R.id.helloText);
+                String message = txt.getText().toString();
+                Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     @Override
