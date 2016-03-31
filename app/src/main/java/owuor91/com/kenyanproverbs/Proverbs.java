@@ -26,10 +26,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Proverbs extends AppCompatActivity {
 
-     public static ArrayList<String> provStringArrayList;
+    public static ArrayList<String> provStringArrayList;
     public ArrayList<Proverb> proverbArrayList;
-     public static ArrayAdapter arrayAdapter;
-
+    public static ArrayAdapter arrayAdapter;
+    static String message;
+    String[] provStringArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,13 @@ public class Proverbs extends AppCompatActivity {
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/ArchitectsDaughter.ttf").setFontAttrId(R.attr.fontPath).build());
 
+        //Toast.makeText(getBaseContext(), currentProverb().toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void swipeCards(){
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
-        String[] provStringArray = getResources().getStringArray(R.array.proverbsArray);
+        provStringArray = getResources().getStringArray(R.array.proverbsArray);
 
         Proverb[] arrayOfProverbs = new Proverb[provStringArray.length];
 
@@ -94,8 +96,7 @@ public class Proverbs extends AppCompatActivity {
             public void onScroll(float v) {
                 View view = (View) findViewById(flingContainer.getId());
                 TextView txt = (TextView) view.findViewById(R.id.helloText);
-                String message = txt.getText().toString();
-                Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+                message = txt.getText().toString();
             }
         });
     }
@@ -123,6 +124,18 @@ public class Proverbs extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    private String currentProverb(){
+        int index=0;
+        for (int p=0; p <provStringArray.length; p++){
+            if (provStringArray[p]==message){
+                index = p+1;
+            }
+        }
+        String currentProv = provStringArray[index];
+        return currentProv;
     }
 
     private void tweetShare(){
