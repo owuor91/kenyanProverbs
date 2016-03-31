@@ -2,6 +2,8 @@ package owuor91.com.kenyanproverbs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -139,9 +141,29 @@ public class Proverbs extends AppCompatActivity {
     }
 
     private void tweetShare(){
-//        String message =  "Wee nimnoma"; //txtMessage.getText().toString();
-//        Intent tweet = new Intent(Intent.ACTION_VIEW);
-//        tweet.setData(Uri.parse("http://twitter.com/?status=" + Uri.encode(message)));
-//        startActivity(tweet);
+        String tweet = "\""+ currentProverb()+"\" - Kenyan Proverb";
+        Intent tweetIntent = new Intent(Intent.ACTION_SEND);
+        tweetIntent.putExtra(Intent.EXTRA_TEXT, tweet);
+        tweetIntent.setType("text/plain");
+
+        PackageManager packageManager = getPackageManager();
+        List<ResolveInfo> resolvedInfoList = packageManager.queryIntentActivities(tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        boolean resolved = false;
+
+        for (ResolveInfo resolveInfo : resolvedInfoList ){
+            if (resolveInfo.activityInfo.packageName.startsWith("com.twitter.android")){
+                tweetIntent.setClassName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name);
+                resolved = true;
+                break;
+            }
+        }
+        if (resolved){
+            startActivity(tweetIntent);
+        }
+        else {
+            Toast.makeText(this, "Sorry, Twitter app not found", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
