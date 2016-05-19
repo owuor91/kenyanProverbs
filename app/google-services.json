@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1098116366881",
+    "firebase_url": "https://project-4732763764823188518.firebaseio.com",
+    "project_id": "project-4732763764823188518",
+    "storage_bucket": "project-4732763764823188518.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098116366881:android:d3686de023e332c4",
+        "android_client_info": {
+          "package_name": "owuor91.com.kenyanproverbs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098116366881-t9qm7jijlvj9u9brb98ed3jbuuolai53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfEds3K4yajvxaRqYRIsAsWqwfbZexB5k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
