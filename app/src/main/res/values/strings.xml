@@ -4,6 +4,7 @@
     <string name="title_activity_proverbs">Kenyan Proverbs</string>
 
     <array name="proverbsArray">
+        <item>"Uko na kumi nikupatie mbao?"</item>
         <item>"Ata ndio nilikuwa nataka kukupigia."</item>
         <item>"Huezi nisalimia, kwani tulilala pamoja?"</item>
         <item>"He is a good man, the people who surround him are the ones that are bad" </item>
