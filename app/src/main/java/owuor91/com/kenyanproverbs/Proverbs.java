@@ -1,5 +1,6 @@
 package owuor91.com.kenyanproverbs;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,8 +9,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +36,7 @@ public class Proverbs extends AppCompatActivity {
     public static ArrayAdapter arrayAdapter;
     static String message;
     String[] provStringArray;
+    FloatingActionButton fabAddKp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,13 @@ public class Proverbs extends AppCompatActivity {
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/ArchitectsDaughter.ttf").setFontAttrId(R.attr.fontPath).build());
 
-        //Toast.makeText(getBaseContext(), currentProverb().toString(), Toast.LENGTH_SHORT).show();
+        fabAddKp = (FloatingActionButton)findViewById(R.id.fabAddKp);
+        fabAddKp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
     }
 
     private void swipeCards(){
@@ -128,6 +138,15 @@ public class Proverbs extends AppCompatActivity {
         }
     }
 
+    private void showDialog(){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add your proverb");
+        View view = inflater.inflate(R.layout.addproverb, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+    }
 
     private String currentProverb(){
         int index=0;
