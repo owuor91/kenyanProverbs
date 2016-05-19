@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,10 @@ public class Proverbs extends AppCompatActivity {
     static String message;
     String[] provStringArray;
     FloatingActionButton fabAddKp;
+    EditText etAddKp;
+    Button btnAddKp;
+    public String newProv="";
+    public static Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,8 +150,18 @@ public class Proverbs extends AppCompatActivity {
         builder.setTitle("Add your proverb");
         View view = inflater.inflate(R.layout.addproverb, null);
         builder.setView(view);
-        Dialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
+
+        etAddKp = (EditText) dialog.findViewById(R.id.etAddKp);
+        btnAddKp = (Button) dialog.findViewById(R.id.btnAddKp);
+        btnAddKp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newProv = etAddKp.getText().toString();
+                dialog.dismiss();
+            }
+        });
     }
 
     private String currentProverb(){
