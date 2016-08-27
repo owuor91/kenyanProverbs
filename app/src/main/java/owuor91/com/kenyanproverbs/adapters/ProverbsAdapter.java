@@ -1,4 +1,4 @@
-package owuor91.com.kenyanproverbs;
+package owuor91.com.kenyanproverbs.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import owuor91.com.kenyanproverbs.R;
+import owuor91.com.kenyanproverbs.models.Proverb;
 
 /**
  * Created by johno_000 on 3/24/2016.

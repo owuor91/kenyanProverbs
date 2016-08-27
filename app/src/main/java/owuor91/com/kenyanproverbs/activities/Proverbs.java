@@ -1,14 +1,12 @@
-package owuor91.com.kenyanproverbs;
+package owuor91.com.kenyanproverbs.activities;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import owuor91.com.kenyanproverbs.adapters.ProverbsAdapter;
+import owuor91.com.kenyanproverbs.R;
+import owuor91.com.kenyanproverbs.models.Proverb;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

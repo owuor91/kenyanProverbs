@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="owuor91.com.kenyanproverbs.Proverbs">
+    tools:context=".activities.Proverbs">
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_share_white_24dp"

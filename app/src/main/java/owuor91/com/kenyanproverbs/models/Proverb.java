@@ -1,4 +1,4 @@
-package owuor91.com.kenyanproverbs;
+package owuor91.com.kenyanproverbs.models;
 
 /**
  * Created by johno_000 on 3/24/2016.
