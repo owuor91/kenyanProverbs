@@ -24,6 +24,8 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.orm.SugarRecord;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import owuor91.com.kenyanproverbs.adapters.ProverbsAdapter;
@@ -40,9 +42,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Proverbs extends AppCompatActivity {
 
-    public static ArrayList<String> provStringArrayList;
     public List<Proverb> proverbsList;
-    public static ArrayAdapter arrayAdapter;
+    ProverbsAdapter proverbsAdapter;
     static String message;
     FloatingActionButton fabAddKp;
     EditText etAddKp;
@@ -79,14 +80,22 @@ public class Proverbs extends AppCompatActivity {
     private void swipeCards(){
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
+        proverbsList = new ArrayList<Proverb>();
         proverbsList = SugarRecord.listAll(Proverb.class);
+
+        Collections.sort(proverbsList, new Comparator<Proverb>() {
+            @Override
+            public int compare(Proverb lhs, Proverb rhs) {
+                return rhs.getId() - lhs.getId();
+            }
+        });
         provStringArray = new String[proverbsList.size()];
 
         for (int i = 0; i < proverbsList.size(); i++) {
             provStringArray[i] = proverbsList.get(i).getText();
         }
 
-        final ProverbsAdapter proverbsAdapter = new ProverbsAdapter(this, proverbsList);
+        proverbsAdapter = new ProverbsAdapter(this, proverbsList);
 
         flingContainer.setAdapter(proverbsAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -120,6 +129,10 @@ public class Proverbs extends AppCompatActivity {
                 View view = (View) findViewById(flingContainer.getId());
                 TextView txt = (TextView) view.findViewById(R.id.helloText);
                 message = txt.getText().toString();
+                if (message.equals("End of list. Add your own proverb")){
+                    //flingContainer.setVisibility(View.GONE);
+                    swipeCards();
+                }
             }
         });
     }
@@ -226,7 +239,7 @@ public class Proverbs extends AppCompatActivity {
 
     }
 
-    private void postNewProverb(Proverb newProverb){
+    private void postNewProverb(final Proverb newProverb){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Posting proverb...");
         progressDialog.show();
@@ -238,6 +251,9 @@ public class Proverbs extends AppCompatActivity {
             public void onResponse(Call<Proverb> call, Response<Proverb> response) {
                 if (response.isSuccessful()){
                     new ProverbsService().fetchProverbs();
+                    proverbsList.add(newProverb);
+                    proverbsAdapter.notifyDataSetChanged();
+                    swipeCards();
                     progressDialog.dismiss();
                     Toast.makeText(getBaseContext(),"Succesfully posted proverb", Toast.LENGTH_SHORT).show();
                 }
