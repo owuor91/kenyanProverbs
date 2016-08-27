@@ -1,5 +1,7 @@
 package owuor91.com.kenyanproverbs.services;
 
+import com.orm.SugarRecord;
+
 import java.util.List;
 
 import owuor91.com.kenyanproverbs.models.Proverb;
@@ -20,7 +22,11 @@ public class ProverbsService {
         proverbsListCall.enqueue(new Callback<List<Proverb>>() {
             @Override
             public void onResponse(Call<List<Proverb>> call, Response<List<Proverb>> response) {
-
+                if (response.isSuccessful()){
+                    List<Proverb> proverbList = response.body();
+                    SugarRecord.deleteAll(Proverb.class);
+                    SugarRecord.saveInTx(proverbList);
+                }
             }
 
             @Override
