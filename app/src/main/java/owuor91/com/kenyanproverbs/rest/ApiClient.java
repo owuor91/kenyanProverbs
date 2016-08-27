@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by owuor91 on 8/27/16.
  */
 public class ApiClient {
-    public static final String BASE_URL = "http://kpapi.herokuapp.com";
+    public static final String BASE_URL = "http://kpapi.herokuapp.com/";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create());
