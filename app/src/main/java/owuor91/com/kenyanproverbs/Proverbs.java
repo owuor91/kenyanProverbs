@@ -21,12 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -164,9 +158,6 @@ public class Proverbs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 newProv = etAddKp.getText().toString();
-                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                DatabaseReference myReference = firebaseDatabase.getReference("kenyanproverbs");
-                myReference.child("kenyanproverbs").push().setValue(newProv);
                 dialog.dismiss();
             }
         });
