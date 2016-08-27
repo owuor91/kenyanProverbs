@@ -28,6 +28,10 @@ import java.util.List;
 import owuor91.com.kenyanproverbs.adapters.ProverbsAdapter;
 import owuor91.com.kenyanproverbs.R;
 import owuor91.com.kenyanproverbs.models.Proverb;
+import owuor91.com.kenyanproverbs.rest.ApiClient;
+import owuor91.com.kenyanproverbs.rest.ApiInterface;
+import owuor91.com.kenyanproverbs.services.ProverbsService;
+import retrofit2.Call;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -55,6 +59,7 @@ public class Proverbs extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        new ProverbsService().fetchProverbs();
         swipeCards();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/ArchitectsDaughter.ttf").setFontAttrId(R.attr.fontPath).build());
@@ -76,13 +81,13 @@ public class Proverbs extends AppCompatActivity {
         Proverb[] arrayOfProverbs = new Proverb[provStringArray.length];
 
         for (int k=0; k < provStringArray.length; k++){
-            Proverb newProv = new Proverb(provStringArray[k]);
-            arrayOfProverbs[k] = newProv;
+            //Proverb newProv = new Proverb(provStringArray[k]);
+            //arrayOfProverbs[k] = newProv;
         }
 
         proverbArrayList = new ArrayList<Proverb>(Arrays.asList(arrayOfProverbs));
 
-        //arrayAdapter = new ArrayAdapter<String>(this, R.layout.item, R.id.helloText, provStringArrayList);
+
         final ProverbsAdapter proverbsAdapter = new ProverbsAdapter(this, proverbArrayList);
 
         flingContainer.setAdapter(proverbsAdapter);
@@ -105,7 +110,8 @@ public class Proverbs extends AppCompatActivity {
 
             @Override
             public void onAdapterAboutToEmpty(int i) {
-                Proverb last = new Proverb("No more Kenyan proverbs left to show");
+                Proverb last = new Proverb();
+                last.setText("No more Kenyan proverbs left to show");
                 proverbArrayList.add(i, last);
                 proverbsAdapter.notifyDataSetChanged();
                 i++;

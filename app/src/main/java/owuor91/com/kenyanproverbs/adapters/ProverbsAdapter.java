@@ -31,7 +31,7 @@ public class ProverbsAdapter extends ArrayAdapter<Proverb> {
         }
 
         txtProverb = (TextView)convertView.findViewById(R.id.helloText);
-        txtProverb.setText(proverb.text);
+        //txtProverb.setText(proverb.text);
         return convertView;
     }
 }
