@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import owuor91.com.kenyanproverbs.R;
 import owuor91.com.kenyanproverbs.models.Proverb;
@@ -18,7 +19,7 @@ import owuor91.com.kenyanproverbs.models.Proverb;
 public class ProverbsAdapter extends ArrayAdapter<Proverb> {
     public static TextView txtProverb;
 
-    public ProverbsAdapter(Context context, ArrayList<Proverb> proverbs){
+    public ProverbsAdapter(Context context, List<Proverb> proverbs){
         super(context,0,proverbs);
     }
 
@@ -31,7 +32,7 @@ public class ProverbsAdapter extends ArrayAdapter<Proverb> {
         }
 
         txtProverb = (TextView)convertView.findViewById(R.id.helloText);
-        //txtProverb.setText(proverb.getText());
+        txtProverb.setText(proverb.getText());
         return convertView;
     }
 }

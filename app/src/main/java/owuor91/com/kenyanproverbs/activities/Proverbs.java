@@ -20,34 +20,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import com.orm.SugarRecord;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import owuor91.com.kenyanproverbs.adapters.ProverbsAdapter;
 import owuor91.com.kenyanproverbs.R;
 import owuor91.com.kenyanproverbs.models.Proverb;
-import owuor91.com.kenyanproverbs.rest.ApiClient;
-import owuor91.com.kenyanproverbs.rest.ApiInterface;
 import owuor91.com.kenyanproverbs.services.ProverbsService;
-import retrofit2.Call;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Proverbs extends AppCompatActivity {
 
     public static ArrayList<String> provStringArrayList;
-    public ArrayList<Proverb> proverbArrayList;
+    public List<Proverb> proverbsList;
     public static ArrayAdapter arrayAdapter;
     static String message;
-    String[] provStringArray;
     FloatingActionButton fabAddKp;
     EditText etAddKp;
     TextView tvCancel;
     Button btnAddKp;
     public String newProv="";
     public static Dialog dialog;
+    String[] provStringArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,25 +73,20 @@ public class Proverbs extends AppCompatActivity {
     private void swipeCards(){
         final SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
-        provStringArray = getResources().getStringArray(R.array.proverbsArray);
+        proverbsList = SugarRecord.listAll(Proverb.class);
+        provStringArray = new String[proverbsList.size()];
 
-        Proverb[] arrayOfProverbs = new Proverb[provStringArray.length];
-
-        for (int k=0; k < provStringArray.length; k++){
-            //Proverb newProv = new Proverb(provStringArray[k]);
-            //arrayOfProverbs[k] = newProv;
+        for (int i = 0; i < proverbsList.size(); i++) {
+            provStringArray[i] = proverbsList.get(i).getText();
         }
 
-        proverbArrayList = new ArrayList<Proverb>(Arrays.asList(arrayOfProverbs));
-
-
-        final ProverbsAdapter proverbsAdapter = new ProverbsAdapter(this, proverbArrayList);
+        final ProverbsAdapter proverbsAdapter = new ProverbsAdapter(this, proverbsList);
 
         flingContainer.setAdapter(proverbsAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                proverbArrayList.remove(0);
+                proverbsList.remove(0);
                 proverbsAdapter.notifyDataSetChanged();
             }
 
@@ -112,7 +104,7 @@ public class Proverbs extends AppCompatActivity {
             public void onAdapterAboutToEmpty(int i) {
                 Proverb last = new Proverb();
                 last.setText("No more Kenyan proverbs left to show");
-                proverbArrayList.add(i, last);
+                proverbsList.add(i, last);
                 proverbsAdapter.notifyDataSetChanged();
                 i++;
             }
