@@ -39,6 +39,7 @@ public class Proverbs extends AppCompatActivity {
     String[] provStringArray;
     FloatingActionButton fabAddKp;
     EditText etAddKp;
+    TextView tvCancel;
     Button btnAddKp;
     public String newProv="";
     public static Dialog dialog;
@@ -152,12 +153,24 @@ public class Proverbs extends AppCompatActivity {
         dialog = builder.create();
         dialog.show();
 
+        tvCancel = (TextView) dialog.findViewById(R.id.tvCancel);
         etAddKp = (EditText) dialog.findViewById(R.id.etAddKp);
         btnAddKp = (Button) dialog.findViewById(R.id.btnAddKp);
         btnAddKp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 newProv = etAddKp.getText().toString();
+                boolean error = false;
+                if (newProv.equals("")){
+                    error = true;
+                    etAddKp.setError("Field can't be empty");
+                }
+            }
+        });
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
