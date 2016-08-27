@@ -1,6 +1,7 @@
 package owuor91.com.kenyanproverbs.activities;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,7 +29,12 @@ import java.util.List;
 import owuor91.com.kenyanproverbs.adapters.ProverbsAdapter;
 import owuor91.com.kenyanproverbs.R;
 import owuor91.com.kenyanproverbs.models.Proverb;
+import owuor91.com.kenyanproverbs.rest.ApiClient;
+import owuor91.com.kenyanproverbs.rest.ApiInterface;
 import owuor91.com.kenyanproverbs.services.ProverbsService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -103,7 +109,7 @@ public class Proverbs extends AppCompatActivity {
             @Override
             public void onAdapterAboutToEmpty(int i) {
                 Proverb last = new Proverb();
-                last.setText("No more Kenyan proverbs left to show");
+                last.setText("End of list. Add your own proverb");
                 proverbsList.add(i, last);
                 proverbsAdapter.notifyDataSetChanged();
                 i++;
@@ -164,6 +170,13 @@ public class Proverbs extends AppCompatActivity {
                     error = true;
                     etAddKp.setError("Field can't be empty");
                 }
+
+                if (error==false){
+                    Proverb newProverb = new Proverb();
+                    newProverb.setText(newProv);
+                    dialog.dismiss();
+                    postNewProverb(newProverb);
+                }
             }
         });
 
@@ -211,6 +224,35 @@ public class Proverbs extends AppCompatActivity {
             Toast.makeText(this, "Sorry, Twitter app not found", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void postNewProverb(Proverb newProverb){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Posting proverb...");
+        progressDialog.show();
+
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class);
+        Call<Proverb> proverbCall = apiInterface.postNewProverb(newProverb);
+        proverbCall.enqueue(new Callback<Proverb>() {
+            @Override
+            public void onResponse(Call<Proverb> call, Response<Proverb> response) {
+                if (response.isSuccessful()){
+                    new ProverbsService().fetchProverbs();
+                    progressDialog.dismiss();
+                    Toast.makeText(getBaseContext(),"Succesfully posted proverb", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    progressDialog.dismiss();
+                    Toast.makeText(getBaseContext(),"Oops, Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Proverb> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }
