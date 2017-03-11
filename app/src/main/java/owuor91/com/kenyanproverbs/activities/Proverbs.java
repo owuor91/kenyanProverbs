@@ -67,7 +67,6 @@ public class Proverbs extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         new ProverbsService().fetchProverbs();
-        swipeCards();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/ArchitectsDaughter.ttf").setFontAttrId(R.attr.fontPath).build());
 
@@ -78,6 +77,12 @@ public class Proverbs extends AppCompatActivity {
                 showDialog();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        swipeCards();
     }
 
     private void swipeCards(){
@@ -104,8 +109,10 @@ public class Proverbs extends AppCompatActivity {
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                proverbsList.remove(0);
-                proverbsAdapter.notifyDataSetChanged();
+                if(proverbsList.size()>0){
+                    proverbsList.remove(0);
+                    proverbsAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
